@@ -1,9 +1,9 @@
-import React, { useState, useEffect }from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Link } from 'react-router-dom';
 import {BrowserRouter as Router} from 'react-router-dom';
 import { Home, Register, Login, Routines, Header } from '../src/components/index';
-import  handleToken  from './utilities/token';
+import  handleToken from './utilities/token';
 
 
 const App = () => {
@@ -15,12 +15,12 @@ const App = () => {
     }, [savedToken]);
 
   return (
-  <div className='app'>
+  <div id='App'>
     <Header isLoggedIn={isLoggedIn} setToken={handleToken.saveToken} />
     <main>
       <Switch> 
         <Route exact path="/register"><Register setSavedToken={setSavedToken} /></Route>
-        <Route path="/login"><Login setSavedToken={setSavedToken} /></Route>
+        <Route exact path="/login"><Login setSavedToken={setSavedToken} /></Route>
         <Route exact path="/"><Home /></Route>
         <Route exact path="/routines"><Routines /></Route>
       </Switch>

@@ -11,66 +11,6 @@ const Login = ({setSavedToken}) => {
 
     async function storeServerToken() {
         try {
-            const userLogin = {user};
-            const data = await api.makeRequest('/users/login', 'POST', userLogin);
-            handleToken.saveToken(data.data.token);
-            setSavedToken(handleToken.grabToken());
-        } catch (error) {
-            console.error(error);
-        } finally {
-            history.push('/posts');
-        }
-    }
-
-    function handleSubmit(event) {
-        event.preventDefault();
-        storeServerToken();
-    }
-
-    function handleInput(event) {
-        const userKey = event.target.attributes['name'].value;
-        const newState = {...user};
-        newState[userKey] = event.target.value;
-        setUser(newState);
-    }
-
-    return (
-        <div className="login" >
-            <form onSubmit={handleSubmit}>
-                <input type="text" 
-                       required
-                       name="username"
-                       value={user.username}
-                       onChange={handleInput}
-                       placeholder="username" />
-                <input type="password"
-                       required
-                       name="password"
-                       value={user.password}
-                       onChange={handleInput}
-                       placeholder="password"></input>
-                <button>Submit</button>
-            </form>
-            <p>Don't have a login? Click below to register!</p>
-            <Link to="/Register">Register</Link>
-        </div>
-    )
-}
-
-export default Login;
-import React, { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import api from '../utilities/api';
-import handleToken from '../utilities/token'
-// import "../style/login.css"
-
-const Login = ({setSavedToken}) => {
-
-    let history = useHistory();
-    const [user, setUser] = useState({username: '', password: ''});
-
-    async function storeServerToken() {
-        try {
             const userLogin = user;
             const data = await api.makeRequest('/users/login', 'POST', userLogin);
             handleToken.saveToken(data.data.token);
@@ -95,7 +35,7 @@ const Login = ({setSavedToken}) => {
     }
 
     return (
-        <div className="login" >
+        <div id="login" >
             <form onSubmit={handleSubmit}>
                 <input type="text" 
                        required
@@ -118,7 +58,3 @@ const Login = ({setSavedToken}) => {
 }
 
 export default Login;
-
-
-import API from '../utilities/api';
-import TokenUtilities from '../utilities/token';
