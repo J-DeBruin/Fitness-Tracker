@@ -13,7 +13,6 @@ const Routines = () => {
             console.log(data);
             setRoutineList(data);
         } catch(error) {
-
             console.error(error);
           }  
       }, []);
@@ -25,16 +24,15 @@ const Routines = () => {
             creatorName={routine.creatorName}
             activities={routine.activities}
         />
-    })
-
+    });
 
     return (
-        <div>
+        <div id="App">
             <h1>This is a list of all the public routines</h1>
             <p>Want to create or update a routine? <Link to="/login"> Login Here!</Link></p>
             {routineElement}
         </div>
     )
-}
+};
 
 export default Routines;

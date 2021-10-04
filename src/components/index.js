@@ -5,3 +5,4 @@ export { default as Login} from './Login';
 export { default as routine} from './routine';
 export { default as Header} from './Header';
 export { default as RoutineForm} from './RoutineForm';
+export { default as Activities} from './Activities';

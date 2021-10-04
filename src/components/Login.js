@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import api from '../utilities/api';
-import handleToken from '../utilities/token'
-// import "../style/login.css"
+import handleToken from '../utilities/token';
 
 const Login = ({setSavedToken}) => {
 
@@ -20,19 +19,19 @@ const Login = ({setSavedToken}) => {
         } finally {
             history.push('/posts');
         }
-    }
+    };
 
     function handleSubmit(event) {
         event.preventDefault();
         storeServerToken();
-    }
+    };
 
     function handleInput(event) {
         const userKey = event.target.attributes['name'].value;
         const newState = {...user};
         newState[userKey] = event.target.value;
         setUser(newState);
-    }
+    };
 
     return (
         <div id="login" >
@@ -55,6 +54,6 @@ const Login = ({setSavedToken}) => {
             <Link to="/Register">Register</Link>
         </div>
     )
-}
+};
 
 export default Login;

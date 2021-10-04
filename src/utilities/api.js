@@ -24,5 +24,4 @@ export default {
         console.log(responseData);
         return responseData;
     }
-
 }

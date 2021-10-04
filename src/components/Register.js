@@ -20,12 +20,12 @@ const Register = () => {
         } finally {
             history.push('/');
         }
-    }
+    };
 
     function handleSubmit(event) {
         event.preventDefault();
         storeToken();
-    }
+    };
 
     function handleInput(event) {
         const userKey = event.target.attributes['name'].value;
@@ -33,7 +33,7 @@ const Register = () => {
         newState[userKey] = event.target.value;
         setUser(newState);
         console.log(user, setUser)
-    }
+    };
 
     function handleConfirmInput(event) {
         let pass = event.target.getAttribute('name');
@@ -43,7 +43,7 @@ const Register = () => {
         newState[passwordConfirm] = event.target.value;
         setPasswordConfirm(newState);
 
-    }
+    };
 
         async function onSubmit(event) {
         event.preventDefault();
@@ -62,11 +62,10 @@ const Register = () => {
         }
         else {
             createServerToken();
-        }}
+        }};
 
     return (
         <div>
-            {}
             <form onSubmit={handleSubmit, onSubmit}>
                 <input type='text'
                         required
@@ -90,6 +89,6 @@ const Register = () => {
             </form>
         </div>
     )
-}
+};
 
 export default Register;

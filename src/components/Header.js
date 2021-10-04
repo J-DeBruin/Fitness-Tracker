@@ -4,14 +4,12 @@ import TokenUtilities from '../utilities/token';
 import { Routines } from './Routines';
 
 const Header = ({isLoggedIn, setToken}) => {
-
-    // let history = useHistory();
     
     function handleLogout(e) {
         e.preventDefault();
         TokenUtilities.removeToken();
         setToken(null);
-    }
+    };
 
     return (
         <header>
@@ -36,5 +34,6 @@ const Header = ({isLoggedIn, setToken}) => {
             }
         </header>
     )
-}
+};
+
 export default Header;
