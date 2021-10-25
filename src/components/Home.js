@@ -1,5 +1,4 @@
 import React from 'react';
-import App from '../index';
 import { Link } from 'react-router-dom';
 
 const Home = () => {

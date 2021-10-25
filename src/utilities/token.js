@@ -1,15 +1,15 @@
-const SECURE_TOKEN = "SecureToken";
+const TOKEN_KEY = "token";
 
 export default {
-    grabToken: function() {
-        return localStorage.getItem(SECURE_TOKEN);
+    getToken: function() {
+        return localStorage.getItem(TOKEN_KEY);
     },
 
-    saveToken: function(token) {
-        localStorage.setItem(SECURE_TOKEN, token);
+    storeToken: function(token) {
+        localStorage.setItem(TOKEN_KEY, token);
     },
 
-    deleteToken: function() {
-        localStorage.removeItem(SECURE_TOKEN);
+    removeToken: function() {
+        localStorage.removeItem(TOKEN_KEY);
     }
 }

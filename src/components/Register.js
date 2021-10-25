@@ -11,9 +11,8 @@ const Register = () => {
     
     async function storeToken() {
         try {
-            debugger
             const data = await API.makeRequest('/users/register', 'POST', user);
-            console.log(data);
+            
             TokenUtilities.saveToken(data.token);
         } catch (error) {
             console.log(error);
@@ -37,12 +36,10 @@ const Register = () => {
 
     function handleConfirmInput(event) {
         let pass = event.target.getAttribute('name');
-        console.log(pass);
         const passwordConfirm = event.target.attributes['name'].value;
         const newState = { ...passwordConfirm};
         newState[passwordConfirm] = event.target.value;
         setPasswordConfirm(newState);
-
     };
 
         async function onSubmit(event) {
@@ -92,3 +89,6 @@ const Register = () => {
 };
 
 export default Register;
+
+
+

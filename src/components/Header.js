@@ -1,39 +1,44 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Route, Link, useHistory } from 'react-router-dom';
-import TokenUtilities from '../utilities/token';
-import { Routines } from './Routines';
 
 const Header = ({isLoggedIn, setToken}) => {
-    
+    let history = useHistory();
+
     function handleLogout(e) {
         e.preventDefault();
-        TokenUtilities.removeToken();
-        setToken(null);
+        localStorage.removeItem('token')
+        setToken(null)
+        history.push('/Home')
     };
 
     return (
-        <header>
-            <h1>Fitness.Trackr</h1>
-            {
-                isLoggedIn ?
-                    <nav className="navbar">
-                        <Link to="/Home">Home</Link>
-                        <Link to="/Routines">Routines</Link>
-                        <button onClick={handleLogout}>Logout</button>
-                    </nav> :
-                    <nav className="navbar">
-                        <Link to="/Home">Home</Link>
-                        <Link to="/Routines">Routines</Link>
-                        <Link to="/Login">
-                            <button>Log in</button>
-                        </Link>
-                        <Link to="/Register">
-                            <button>Register</button>
-                        </Link>
-                    </nav>
-            }
-        </header>
-    )
+        <div>
+          <header>
+            <h1>Fitness Tracker</h1>
+          </header>
+         { 
+            isLoggedIn ?
+           <nav className ='navBar'>
+              <ul>
+                  <Link to={"/"}> Home </Link>
+                  <Link to= {"/Routines"}> Routines </Link>
+                  <Link to= {"/MyRoutines"}> My Routines </Link>
+                  <Link to= {"/Activities"}> Activities </Link>
+                  <button onClick={handleLogout}>Logout</button>
+              </ul>
+            </nav> :
+             <nav>
+             <ul>
+                 <Link to={"/"}> Home </Link>
+                 <Link to= {"/Routines"}> Routines </Link>
+                 <Link to= {"/Activities"}> Activities </Link>
+                 <Link to={"/Login"}> Login </Link>
+                 <Link to={"/Register"}> Register </Link>
+             </ul>
+           </nav>
+         }
+        </div>
+  )
 };
 
 export default Header;

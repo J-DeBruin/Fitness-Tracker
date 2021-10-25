@@ -1,24 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import api from '../utilities/api';
-import handleToken from '../utilities/token';
+import TokenUtilities from '../utilities/token';
 
-const Login = ({setSavedToken}) => {
+const Login = ({setToken}) => {
 
     let history = useHistory();
-    const [user, setUser] = useState({username: '', password: ''});
+    const [name, setName] = useState("");
+    const [password, setPassword] = useState('');
 
-    async function storeServerToken() {
-        try {
-            const userLogin = user;
-            const data = await api.makeRequest('/users/login', 'POST', userLogin);
-            handleToken.saveToken(data.data.token);
-            setSavedToken(handleToken.grabToken());
-        } catch (error) {
-            console.error(error);
-        } finally {
-            history.push('/posts');
-        }
+    function storeServerToken (username, password) {
+        fetch('https://fitnesstrac-kr.herokuapp.com/api/users/login', {
+        method: "POST",
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            username,
+            password
+           })
+        }).then(response => response.json())
+          .then(result => {
+            localStorage.setItem('token', result.token);
+            console.log(result.message);
+            alert(result.message)
+            
+            setToken(result.token); 
+            
+          })
+          .catch(error => {
+            console.error;
+            alert(error.message);
+          })
+          .finally(() => {
+            history.push('/');
+          });
     };
 
     function handleSubmit(event) {
@@ -34,23 +50,24 @@ const Login = ({setSavedToken}) => {
     };
 
     return (
-        <div id="login" >
+        <div>
+            <h2> Welcome! </h2>
             <form onSubmit={handleSubmit}>
                 <input type="text" 
                        required
                        name="username"
-                       value={user.username}
-                       onChange={handleInput}
+                       value={name}
+                       onChange={(event) => setName(event.currentTarget.value) }
                        placeholder="username" />
                 <input type="password"
                        required
                        name="password"
-                       value={user.password}
-                       onChange={handleInput}
+                       value={password}
+                       onChange={(event) => setPassword(event.currentTarget.value) }
                        placeholder="password"></input>
                 <button>Submit</button>
             </form>
-            <p>Don't have a login? Click below to register!</p>
+            <p>If you are not a registered user, please click below to register!</p>
             <Link to="/Register">Register</Link>
         </div>
     )

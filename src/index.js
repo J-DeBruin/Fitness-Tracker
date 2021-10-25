@@ -2,40 +2,46 @@ import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { Route, Switch, Link } from 'react-router-dom';
 import {BrowserRouter as Router} from 'react-router-dom';
-import { Home, Register, Login, Routines, RoutineForm, Header, Activities } from '../src/components/index';
-import  handleToken from './utilities/token';
+import { Home, Register, Login, Routines, Header, Activities, RoutinesPost } from './components/index';
+import  TokenUtilities from './utilities/token';
 
 const App = () => {
-    const [savedToken, setSavedToken] = useState(handleToken.grabToken());
-    const [isLoggedIn, setIsLoggedIn] = useState(!!savedToken);
+  const [token, setToken] = useState(localStorage.getItem('token'));
+  const [isLoggedIn, setIsLoggedIn] = useState(!!token)
 
     useEffect(function() {
-        setIsLoggedIn(!!savedToken);
-    }, [savedToken]);
+        setIsLoggedIn(!!token);
+    }, [token]);
 
   return (
   <div id='App'>
-    <Header isLoggedIn={isLoggedIn} setToken={handleToken.saveToken} />
+    <Header isLoggedIn={isLoggedIn} setToken={TokenUtilities.saveToken} />
     <nav>
-      <Link to="/">Home</Link>
-      <Link to="/register">Register</Link>
-      <Link to="/login">Login</Link>
-      <Link to="/routines">Routines</Link>
+      <ul>
+        <Link to="/">Home</Link>
+        <Link to="/register">Register</Link>
+        <Link to="/login">Login</Link>
+        <Link to="/routines">Routines</Link>
+        <Link to="/myroutines">My Routines</Link>
+      </ul>
     </nav>
     <main>
       <Switch> 
-        <Route path="/register"><Register setSavedToken={setSavedToken} /></Route>
-        <Route path="/login"><Login setSavedToken={setSavedToken} /></Route>
-        <Route path="/"><Home /></Route>
-        <Route path="/routines"><Routines /></Route>
+        <Route path="/Register"><Register setToken={setToken} /></Route>
+        <Route path="/Login"><Login setToken={setToken} /></Route>
+        <Route exact path="/"><Home /></Route>
+        <Route path="/Routines"><Routines /></Route>
+        <Route path="/Activities"><Activities /></Route>
+        <Route path="MyRoutines"><RoutinesPost /></Route>
       </Switch>
     </main>
   </div>
   )
 }
-export default App;
 
 ReactDOM.render(
     <Router><App /></Router>, 
-    document.getElementById('App')
+    document.getElementById('app')
 );
+
+export default App;
